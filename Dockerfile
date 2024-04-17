@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:18-bullseye-slim
 
 WORKDIR /app
 
@@ -9,4 +9,3 @@ RUN npm install
 COPY . /app/
 
 EXPOSE 5173
-
