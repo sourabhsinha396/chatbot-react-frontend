@@ -2,6 +2,7 @@ import { FormEvent } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import config from "../../../config.json";
 
 
 function Register() {
@@ -19,7 +20,8 @@ function Register() {
         console.log(formData);
 
         try {
-            axios.post('http://127.0.0.1:8000/v1/users', formData)
+            const backendUrl = config.BACKEND_URL || 'http://127.0.0.1:8000';
+            axios.post(`${backendUrl}/v1/users`, formData)
             .then((response) => {
                 console.log("response", response.data);
                 if (response.status === 201) {

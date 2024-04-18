@@ -2,7 +2,7 @@ import axios from "axios";
 import { FormEvent } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import config from "../../../config.json";
 
 
 export default function Login() {
@@ -23,7 +23,8 @@ export default function Login() {
             formData.append('password', userData.password);
             
             console.log(userData);
-            axios.post("http://localhost:8000/v1/token", formData, {
+            const backendUrl = config.BACKEND_URL || 'http://127.0.0.1:8000';
+            axios.post(`${backendUrl}/v1/token`, formData, {
                 headers: {
                 "Content-Type": "multipart/form-data",
                     },

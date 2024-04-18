@@ -2,6 +2,7 @@ import axios from "axios";
 import { AxiosError } from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import config from "../../../config.json";
 
 export default function TextCompletion() {
     const [message, setMessage] = useState('');
@@ -19,8 +20,11 @@ export default function TextCompletion() {
 
 
         const token = localStorage.getItem('token');
-        if (!token) return;
-        axios.post('http://127.0.0.1:8000/v1/chat/completions', {message}, { headers: { Authorization: `Bearer ${token}` } })
+        if (!token){
+            navigate('/login');
+        }
+        const backendUrl = config.BACKEND_URL || 'http://127.0.0.1:8000';
+        axios.post(`${backendUrl}/v1/chat/completions`, {message}, { headers: { Authorization: `Bearer ${token}` } })
         .then((response) => {
             if (response.status === 200 && messages) {
                 const botMessage = document.createElement('div');
